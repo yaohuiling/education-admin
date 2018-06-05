@@ -1,0 +1,29 @@
+{
+  "name": "education",
+  "version": "1.0.0",
+  "description": "education on line",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-file-include": "^2.0.1",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-clean": "*",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-concat": "*",
+    "gulp-connect": "*",
+    "gulp-csso": "*",
+    "gulp-imagemin": "^3.0.1",
+    "gulp-jshint": "*",
+    "gulp-less": "*",
+    "gulp-refresh": "^1.1.0",
+    "gulp-sourcemaps": "*",
+    "gulp-uglify": "*",
+    "imagemin-pngcrush": "^5.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "liyang",
+  "license": "ISC"
+}
