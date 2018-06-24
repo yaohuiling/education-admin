@@ -6,22 +6,10 @@ window.D = {
     API_PATH: "http://192.168.1.108:8080/coldol/api/",
     IMG_PATH: "http://10.162.176.21/",
     htmlPath: 'http://192.168.1.108/coldol/views/',
-
-    /* 海尔冷链测试服务器配置 */
-    // API_PATH: "http://10.162.176.22:8080/coldol/api/",
-    // IMG_PATH: "http://10.162.176.22/",
-    // htmlPath: 'http://10.162.176.22/coldol/views/',
-
-    /*api地址*/
-    // API_PATH: "http://localhost:8080/coldol/api/",
     /*项目根路径*/
     ROOT_PATH: "",
-    /* 图片路径 */
-    // IMG_PATH: "http://localhost/",
     /*成功code值*/
     SUCCESS_CODE: "10000",
-    // htmlPath: 'http://localhost/coldol/views/',
-    /*htmlPath: 'http://192.168.1.136/coldol/views/',*/
     /*跳转*/
     goto: function(url, forceTop) {
         (forceTop ? window.top : window).location.href = url
@@ -1105,5 +1093,14 @@ window.D = {
     },
     refreshThisContent: function() {
         $("#mainDiv").load(D.getCookie("this_content_url"));
-    }
+    },
+    zTreeCheckedNodes: function (zTreeId) {
+        var zTree = $.fn.zTree.getZTreeObj(zTreeId);
+        var nodes = zTree.getCheckedNodes();
+        var ids = "";
+        for (var i = 0, l = nodes.length; i < l; i++) {
+            ids += "," + nodes[i].id;
+        }
+        return ids.substring(1);
+    },
 };
