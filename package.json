@@ -11,7 +11,7 @@
     "gulp-clean": "*",
     "gulp-clean-css": "^3.9.2",
     "gulp-concat": "*",
-    "gulp-connect": "*",
+    "gulp-connect": "^4.1.0",
     "gulp-csso": "*",
     "gulp-imagemin": "^3.0.1",
     "gulp-jshint": "*",
@@ -19,7 +19,9 @@
     "gulp-refresh": "^1.1.0",
     "gulp-sourcemaps": "*",
     "gulp-uglify": "*",
-    "imagemin-pngcrush": "^5.0.0"
+    "imagemin-pngcrush": "^5.0.0",
+    "gulp-changed": "^1.3.0",
+    "browser-sync": "^2.13.0"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
