@@ -3,7 +3,7 @@
  */
 window.D = {
     /* 海尔冷链正式服务器配置 */
-    API_PATH: "http://192.168.1.108:8080/coldol/api/",
+    API_PATH: "http://192.168.1.108:8083/",
     IMG_PATH: "http://10.162.176.21/",
     htmlPath: 'http://192.168.1.108/coldol/views/',
     /*项目根路径*/
@@ -33,6 +33,7 @@ window.D = {
             type: method,
             url: api,
             data: data,
+             headers : {'Authorization':$.cookie("token")},
             dataType: "json",
             async: true, //异步请求
             //跨域请求
@@ -106,6 +107,7 @@ window.D = {
             url: api,
             data: data,
             dataType: "json",
+            headers : {'Authorization':$.cookie("token")},
             async: false, //同步请求
             //跨域请求
             xhrFields: {
