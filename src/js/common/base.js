@@ -33,7 +33,7 @@ window.D = {
             type: method,
             url: api,
             data: data,
-             headers : {'Authorization':$.cookie("token")},
+             /*headers : {'Authorization':$.cookie("token")},*/
             dataType: "json",
             async: true, //异步请求
             //跨域请求
