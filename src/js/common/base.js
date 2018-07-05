@@ -5,7 +5,7 @@ window.D = {
     /* 海尔冷链正式服务器配置 */
     API_PATH: "http://192.168.1.108:8083/",
     IMG_PATH: "http://10.162.176.21/",
-    htmlPath: 'http://192.168.1.108/coldol/views/',
+    HTML_PATH: 'http://localhost:3009/views/',
     /*项目根路径*/
     ROOT_PATH: "",
     /*成功code值*/

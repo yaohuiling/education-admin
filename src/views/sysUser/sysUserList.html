@@ -1,5 +1,98 @@
+<section class="content-header">
+    <h1></h1>
+    <ol class="breadcrumb">
 
-<section class="content container-fluid">
-
+    </ol>
 </section>
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box">
+                <!-- /.box-header -->
+                <div class="box-body">
+                    <div id="user_table_wrapper" class="dataTables_wrapper form-inline dt-bootstrap no-footer">
+                        <div id="toolbar" class="btn-group">
+                            <form class="form-inline" role="form">
+                                <div style="margin-bottom: 10px;display: none " id="search_hide">
+                                    <div class="form-group">
+                                        <label class="sr-only" for="employee_number">员工编号</label>
+                                        <input type="text" class="form-control" id="employee_number" placeholder="员工编号">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="sr-only" for="name">员工姓名</label>
+                                        <input type="text" class="form-control" id="name" placeholder="员工姓名">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="deptCode" class="sr-only">部门</label>
+                                        <select class="form-control" name="deptCode" id="deptCode">
+                                        </select>
+                                    </div>
+                                    <button id="btn_reset" type="button" class="btn btn-default">
+                                        <span class="glyphicon glyphicon-refresh" aria-hidden="true"></span>重置
+                                    </button>
+                                    <button id="btn_search" type="button" class="btn btn btn-primary">
+                                        <span class="glyphicon glyphicon-search" aria-hidden="true"></span>查询
+                                    </button>
+                                </div>
+                                <button id="btn_update_password" type="button"
+                                        class="btn btn-default edit-item btn_update_password" style="display: none">
+                                    <span class="glyphicon glyphicon-pencil" aria-hidden="true"></span> 重置密码
+                                </button>
+                                <button type="button" class="btn btn-primary importModel" data-toggle="modal"
+                                        data-target="#importModal" style="display: none">
+                                    <i class="fa fa-upload" aria-hidden="true">导入</i>
+                                </button>
+                                <button id="btn_searching" type="button" class="btn btn-primary search-item"
+                                        style="display: none">
+                                    <span class="glyphicon glyphicon-search" aria-hidden="true"></span> 检索
+                                </button>
+                            </form>
+                        </div>
+                        <div class="modal fade" id="importModal" tabindex="-1" role="dialog"
+                             aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h4 class="modal-title" id="myModalLabel">导入员工信息</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <div class="col-sm-8 inbl" id="file_div">
+                                                <input type="file"
+                                                       accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                                                       class="form-control file-loading" id="file" name="file" multiple>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                                        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal fade" id="modalWait" tabindex="-1" role="dialog" aria-labelledby="loading"
+                             data-backdrop="static" data-keyboard="false" aria-hidden="true">
+                            <i class="fa fa-spinner fa-spin fa-4x"
+                               style="left: 50%; top: 50%; margin-left: -25px; margin-top: -25px; position: fixed; color: White;"></i>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table id="user_table"
+                                       class="table table-bordered table-striped table-hover dataTable no-footer"
+                                       style="width: 100%;"
+                                       role="grid" aria-describedby="user_table_info">
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.box-body -->
+            </div>
+        </div>
+        <!-- /.col -->
+    </div>
+    <!-- /.row -->
+</section>
+
 <script src="../../js/app/sysUser/sysUser.js"></script>

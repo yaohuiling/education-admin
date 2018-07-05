@@ -57,7 +57,7 @@ var Login = {
             D.ajax(self.loginUrl, D.RESTFUL_POST, data, function (res) {
                 if (D.SUCCESS_CODE == res.code) {
                     $.cookie("token",res.token);
-                    $.cookie("sysUser",JSON.parse(res.sysUser));
+                    $.cookie("sysUser",JSON.stringify(res.sysUser));
                     self.loginSubmit();
                 } else {
                     modals.info(res.msg);
