@@ -9,7 +9,7 @@
     var BSTable = function (bstableId, url, columns) {
         this.btInstance = null;					//jquery和BootStrapTable绑定的对象
         this.bstableId = bstableId;
-        this.url = Feng.ctxPath + url;
+        this.url = url;
         this.method = "post";
         this.paginationType = "server";			//默认分页方式是服务器分页,可选项"client"
         this.toolbarId = bstableId + "Toolbar";
@@ -28,11 +28,25 @@
             var me = this;
             this.btInstance =
                 $('#' + tableId).bootstrapTable({
-                    contentType: "application/x-www-form-urlencoded",
-                    url: this.url,				//请求地址
-                    method: this.method,		//ajax方式,post还是get
-                    ajaxOptions: {				//ajax请求的附带参数
-                        data: this.data
+                    //contentType: "application/x-www-form-urlencoded",
+                    //url: this.url,				//请求地址
+                    method: me.method,
+                    //ajax方式,post还是get
+                    // ajaxOptions: {				//ajax请求的附带参数
+                    //     //headers : {'Authorization':$.cookie("token")},
+                    //     data: this.data
+                    // },
+                    ajax: function (params) {
+                        debugger
+                        D.ajax(me.url, D.RESTFUL_POST, params.data, function (res) {
+                            if (D.SUCCESS_CODE == res.code) {
+                                params.success({
+                                    total: res.total,
+                                    rows: res.rows
+                                });
+                            }
+                        })
+
                     },
                     toolbar: "#" + this.toolbarId,//顶部工具条
                     striped: true,     			//是否显示行间隔色
@@ -41,11 +55,12 @@
                     sortable: true,      		//是否启用排序
                     sortOrder: "desc",     		//排序方式
                     pageNumber: 1,      			//初始化加载第一页，默认第一页
-                    pageSize: 14,      			//每页的记录行数（*）
-                    pageList: [14, 50, 100],  	//可供选择的每页的行数（*）
+                    pageSize: 15,      			//每页的记录行数（*）
+                    pageList: [15, 30, 45,50,100],  	//可供选择的每页的行数（*）
                     queryParamsType: 'limit', 	//默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
                     queryParams: function (param) {
-                        return $.extend(me.queryParams, param);
+                        console.log("解析",JSON.parse($.extend(me.queryParams, param)));
+                        return JSON.parse($.extend(me.queryParams, param));
                     }, // 向后台传递的自定义参数
                     sidePagination: this.paginationType,   //分页方式：client客户端分页，server服务端分页（*）
                     search: false,      		//是否显示表格搜索，此搜索是客户端搜索，不会进服务端

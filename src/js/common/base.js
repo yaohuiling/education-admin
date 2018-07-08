@@ -3,7 +3,7 @@
  */
 window.D = {
     /* 海尔冷链正式服务器配置 */
-    API_PATH: "http://192.168.1.108:8083/",
+    API_PATH: "http://localhost:8083/",
     IMG_PATH: "http://10.162.176.21/",
     HTML_PATH: 'http://localhost:3009/views/',
     /*项目根路径*/
@@ -33,7 +33,7 @@ window.D = {
             type: method,
             url: api,
             data: data,
-             /*headers : {'Authorization':$.cookie("token")},*/
+             //headers : {'Authorization':$.cookie("token")},
             dataType: "json",
             async: true, //异步请求
             //跨域请求
@@ -107,7 +107,7 @@ window.D = {
             url: api,
             data: data,
             dataType: "json",
-            headers : {'Authorization':$.cookie("token")},
+            //headers : {'Authorization':$.cookie("token")},
             async: false, //同步请求
             //跨域请求
             xhrFields: {
@@ -118,13 +118,13 @@ window.D = {
                 modals.error({
                     text: "服务端无响应",
                     callback: function() {
-                        that.delCookie("sysUserId"); // 清空cookie中用户id
-                        that.delCookie("employee_number"); // 清空cookie中用户名
+                        that.delCookie("sysUser"); // 清空cookie中用户id
+                        that.delCookie("token"); // 清空cookie中用户名
                         that.goto("login.html");
                     },
                     cancel_call: function() {
-                        that.delCookie("sysUserId"); // 清空cookie中用户id
-                        that.delCookie("employee_number"); // 清空cookie中用户名
+                        that.delCookie("sysUser"); // 清空cookie中用户id
+                        that.delCookie("token"); // 清空cookie中用户名
                         that.goto("login.html");
                     }
                 })
