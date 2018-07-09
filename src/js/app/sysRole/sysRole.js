@@ -3,8 +3,9 @@
  * @date:2018-07-06 14:30
  */
 var SysRole = {
-    id:"role_table",
-    table:null,
+    id: "roleTable",
+    table: null,
+    seItem: null,		//选中的条目
     roleList: D.API_PATH + "sysRole/list",//获取角色列表
     getInfo: D.API_PATH + "sysRole/info",//根据id查询角色
     addSysRole: D.API_PATH + "sysRole/add",//保存角色
@@ -12,7 +13,8 @@ var SysRole = {
     removeSysRole: D.API_PATH + "sysRole/remove",//根据id删除角色
     init: function () {
         this.initHeader();
-        this.initRoleTable();
+        this.search();
+        this.remove();
     },
     initHeader: function () {
         var header = $(".content-header");
@@ -37,16 +39,77 @@ var SysRole = {
     initColumn: function () {
         var columns = [
             {field: 'selectItem', radio: true},
+            {
+                title: '序号', width: 50, align: 'center', valign: 'middle',
+                formatter: function (value, row, index) {
+                    return index + 1;
+                }
+            },
             {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '名称', field: 'name', align: 'center', valign: 'middle', sortable: true},
-            {title: '上级角色', field: 'pName', align: 'center', valign: 'middle', sortable: true},
-            {title: '所在机构', field: 'officeName', align: 'center', valign: 'middle', sortable: true}]
+            {title: '名称', field: 'name', align: 'center', valign: 'middle'},
+            {title: '上级角色', field: 'pName', align: 'center', valign: 'middle'},
+            {title: '所在机构', field: 'officeName', align: 'center', valign: 'middle'},
+            {title: '描述', field: 'desc', align: 'center', valign: 'middle'},
+            {
+                title: '创建时间', field: 'creatTime', align: 'center', valign: 'middle',
+                formatter: function (value) {
+                    return moment(value).format("YYYY-MM-DD HH:MM:ss")
+
+                }
+            }
+        ]
         return columns;
     },
+    /**
+     * 检查是否选中
+     */
+    check: function () {
+        var selected = $('#' + this.id).bootstrapTable('getSelections');
+        if (selected.length == 0) {
+            modals.info("请先选中表格中的某一记录！");
+            return false;
+        } else {
+            SysRole.seItem = selected[0];
+            return true;
+        }
+    },
+    search: function () {
+        $("#search").click(function () {
+            var queryData = {};
+            queryData['name'] = $("#roleName").val();
+            SysRole.table.refresh({query: queryData});
+        })
+        $("#btn_reset").click(function () {
+            $("#roleName").val("");
+            var queryData = {};
+            queryData['name'] = $("#roleName").val();
+            SysRole.table.refresh({query: queryData});
+
+        })
+    },
+    remove: function () {
+        var me = this;
+        $("#btn_delete").click(function () {
+            if (me.check()) {
+                modals.confirm("确认删除吗？", function () {
+                    D.ajax(me.removeSysRole, D.RESTFUL_POST, {"id": SysRole.seItem.id}, function (res) {
+                        if(D.SUCCESS_CODE==res.code){
+                            modals.correct(res.msg);
+                            SysRole.table.refresh();
+                        }else{
+                            modals.error(res.msg);
+                        }
+                    })
+                })
+
+            }
+        })
+    }
 
 }
-$(function(){
+$(function () {
     var defaultColunms = SysRole.initColumn();
     var table = new BSTable(SysRole.id, SysRole.roleList, defaultColunms);
     SysRole.table = table.init();
+    SysRole.init();
 })

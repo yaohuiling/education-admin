@@ -14,7 +14,7 @@
         this.paginationType = "server";			//默认分页方式是服务器分页,可选项"client"
         this.toolbarId = bstableId + "Toolbar";
         this.columns = columns;
-        this.height = 665;						//默认表格高度665
+        //this.height = 665;						//默认表格高度665
         this.data = {};
         this.queryParams = {}; // 向后台传递的自定义参数
     };
@@ -37,8 +37,7 @@
                     //     data: this.data
                     // },
                     ajax: function (params) {
-                        debugger
-                        D.ajax(me.url, D.RESTFUL_POST, params.data, function (res) {
+                        D.ajax(me.url, D.RESTFUL_POST, JSON.parse(params.data), function (res) {
                             if (D.SUCCESS_CODE == res.code) {
                                 params.success({
                                     total: res.total,
@@ -59,20 +58,19 @@
                     pageList: [15, 30, 45,50,100],  	//可供选择的每页的行数（*）
                     queryParamsType: 'limit', 	//默认值为 'limit' ,在默认情况下 传给服务端的参数为：offset,limit,sort
                     queryParams: function (param) {
-                        console.log("解析",JSON.parse($.extend(me.queryParams, param)));
-                        return JSON.parse($.extend(me.queryParams, param));
+                        return $.extend(me.queryParams, param);
                     }, // 向后台传递的自定义参数
                     sidePagination: this.paginationType,   //分页方式：client客户端分页，server服务端分页（*）
                     search: false,      		//是否显示表格搜索，此搜索是客户端搜索，不会进服务端
-                    strictSearch: true,			//设置为 true启用 全匹配搜索，否则为模糊搜索
-                    showColumns: true,     		//是否显示所有的列
-                    showRefresh: true,     		//是否显示刷新按钮
+                    strictSearch: false,			//设置为 true启用 全匹配搜索，否则为模糊搜索
+                    showColumns: false,     		//是否显示所有的列
+                    showRefresh: false,     		//是否显示刷新按钮
                     minimumCountColumns: 2,    	//最少允许的列数
                     clickToSelect: true,    	//是否启用点击选中行
                     searchOnEnterKey: true,		//设置为 true时，按回车触发搜索方法，否则自动触发搜索方法
                     columns: this.columns,		//列数组
                     pagination: true,			//是否显示分页条
-                    height: this.height,
+                    //height: this.height,
                     icons: {
                         refresh: 'glyphicon-repeat',
                         toggle: 'glyphicon-list-alt',
