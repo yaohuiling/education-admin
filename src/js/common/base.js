@@ -43,7 +43,7 @@ window.D = {
             success: callback,
             error: function() {
                 modals.error({
-                    text: "服务端无响应",
+                    text: "请登录后尝试",
                     callback: function() {
                         that.delCookie("sysUserId"); // 清空cookie中用户id
                         that.delCookie("employee_number"); // 清空cookie中用户名
@@ -116,7 +116,7 @@ window.D = {
             success: callback,
             error: function() {
                 modals.error({
-                    text: "服务端无响应",
+                    text: "请登录后尝试",
                     callback: function() {
                         that.delCookie("sysUser"); // 清空cookie中用户id
                         that.delCookie("token"); // 清空cookie中用户名

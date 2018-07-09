@@ -6,6 +6,7 @@ var SysRole = {
     id: "roleTable",
     table: null,
     seItem: null,		//选中的条目
+    winId:"roleWin",
     roleList: D.API_PATH + "sysRole/list",//获取角色列表
     getInfo: D.API_PATH + "sysRole/info",//根据id查询角色
     addSysRole: D.API_PATH + "sysRole/add",//保存角色
@@ -15,6 +16,7 @@ var SysRole = {
         this.initHeader();
         this.search();
         this.remove();
+        this.add();
     },
     initHeader: function () {
         var header = $(".content-header");
@@ -49,6 +51,14 @@ var SysRole = {
             {title: '名称', field: 'name', align: 'center', valign: 'middle'},
             {title: '上级角色', field: 'pName', align: 'center', valign: 'middle'},
             {title: '所在机构', field: 'officeName', align: 'center', valign: 'middle'},
+            {title: '状态', field: 'status', align: 'center', valign: 'middle',
+            formatter:function (value) {
+                if(value==1){
+                    return "启用"
+                }else{
+                    return "禁用"
+                }
+            }},
             {title: '描述', field: 'desc', align: 'center', valign: 'middle'},
             {
                 title: '创建时间', field: 'creatTime', align: 'center', valign: 'middle',
@@ -104,7 +114,21 @@ var SysRole = {
 
             }
         })
-    }
+    },
+    add:function () {
+        var me = this;
+        $("#btn_add").click(function () {
+            modals.openWin({
+                winId: me.winId,
+                title: '新增角色',
+                width: '900px',
+                backdrop: 'static',
+                keyboard: false,
+                url: D.HTML_PATH + "sysRole/sysRoleAdd.html"
+            });
+        });
+    },
+
 
 }
 $(function () {

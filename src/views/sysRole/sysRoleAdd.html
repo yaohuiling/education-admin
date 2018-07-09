@@ -1,0 +1,76 @@
+<div id="add" >
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <li class="fa fa-remove"></li>
+        </button>
+        <h5 class="modal-title">新增角色</h5>
+    </div>
+    <div class="modal-body">
+        <form id="roleForm" name="roleForm" class="form-horizontal">
+            <input type="hidden" name="id" id="id">
+            <div class="box-body">
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="name" class="col-sm-3 control-label">角色名称</label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" id="name" name="name" placeholder="角色名称">
+                        </div>
+                    </div>
+                    <div class="form-group">、
+                        <label for="officeName" class="col-sm-3 control-label">机构名称</label>
+                        <div class="col-sm-8">
+                            <input id="officeName" class="form-control"  name="officeId" underline="true" readonly="readonly" placeholder="请选择机构"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label for="pName" class="col-sm-3 control-label">上级名称</label>
+                        <div class="col-sm-8">
+                            <input id="pName" class="form-control"  name="pid" underline="true" readonly="readonly" placeholder="请选择上级角色">
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="add_role_status" class="col-sm-3 control-label">启用</label>
+                        <div class="col-sm-9">
+                            <input type="checkbox" class="form-control" id="add_role_status_switch"
+                                   placeholder="角色状态" checked>
+                            <input type="hidden" id="add_role_status" name="status" value="1">
+                        </div>
+                    </div>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+
+                        <labl for="desc" class="col-sm-3 control-label">角色描述</labl>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="desc" id="desc" placeholder="角色描述">
+                        </div>
+                    </div>
+                </div>
+                <!-- 这是机构下拉框 -->
+                <div id="officeContent" class="menuContent"
+                     style="display: none; position: absolute; z-index: 200;">
+                    <ul id="officeTree" class="ztree tree-box" style="width: 250px !important;"></ul>
+                </div>
+
+                <!-- 这是父级菜单下拉框 -->
+                <div id="pNameContent" class="menuContent"
+                     style="display: none; position: absolute; z-index: 200;">
+                    <ul id="pNameTree" class="ztree tree-box" style="width: 250px !important;"></ul>
+                </div>
+            </div>
+            <!-- /.box-body -->
+            <div class="box-footer text-right">
+                <!--以下两种方式提交验证,根据所需选择-->
+                <button type="button" class="btn btn-default" data-btn-type="cancel" id="cacel" data-dismiss="modal">取消</button>
+                <button type="submit" class="btn btn-primary" data-btn-type="save">提交</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</div>
+<script src="../../js/app/sysRole/sysRoleInfo.js"></script>
