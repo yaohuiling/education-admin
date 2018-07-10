@@ -1105,4 +1105,16 @@ window.D = {
         }
         return ids.substring(1);
     },
+    initValidator: function(formId,fields){
+        $('#' + formId).bootstrapValidator({
+            feedbackIcons: {
+                valid: 'glyphicon glyphicon-ok',
+                invalid: 'glyphicon glyphicon-remove',
+                validating: 'glyphicon glyphicon-refresh'
+            },
+            fields: fields,
+            live: 'enabled',
+            message: '该字段不能为空'
+        });
+    },
 };

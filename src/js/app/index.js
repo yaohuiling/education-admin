@@ -78,4 +78,16 @@ var Index = {
 }
 $(function () {
     Index.init();
+    //给bootstrapValidator扩展方法，为每一个必填项添加必填标识符
+    $.fn.bootstrapValidator.Constructor.prototype.addRequiredIdentifying = function () {
+        var fields = this.options.fields;
+        for (var item in fields) {
+            try {
+                if (fields[item].validators.notEmpty) {
+                    $("#" + item).parents(".form-group").find(".control-label").addClass("form-icon")
+                }
+            } catch (e) {
+            }
+        }
+    }
 })
