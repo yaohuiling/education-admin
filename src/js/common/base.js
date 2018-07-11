@@ -45,13 +45,13 @@ window.D = {
                 modals.error({
                     text: "请登录后尝试",
                     callback: function() {
-                        that.delCookie("sysUserId"); // 清空cookie中用户id
-                        that.delCookie("employee_number"); // 清空cookie中用户名
+                        that.delCookie("token"); // 清空cookie中token
+                        that.delCookie("sysUser"); // 清空cookie中用户
                         that.goto("login.html");
                     },
                     cancel_call: function() {
-                        D.delCookie("sysUserId"); // 清空cookie中用户id
-                        D.delCookie("employee_number"); // 清空cookie中用户名
+                        that.delCookie("token"); // 清空cookie中token
+                        that.delCookie("sysUser"); // 清空cookie中用户
                         that.goto("login.html");
                     }
                 })
@@ -1117,4 +1117,12 @@ window.D = {
             message: '该字段不能为空'
         });
     },
+    /**
+     * 验证数据是否为空
+     */
+    validate: function (formId) {
+        $('#'+formId).data("bootstrapValidator").resetForm();
+        $('#'+formId).bootstrapValidator('validate');
+        return $('#'+formId).data('bootstrapValidator').isValid();
+    }
 };
