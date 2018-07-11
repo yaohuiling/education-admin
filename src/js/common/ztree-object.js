@@ -70,12 +70,13 @@
 		 */
 		loadNodes : function() {
 			var zNodes = null;
-			var ajax = new $ax(Feng.ctxPath + this.url, function(data) {
-				zNodes = data;
-			}, function(data) {
-				Feng.error("加载ztree信息失败!");
-			});
-			ajax.start();
+			D.syncAjax(this.url,D.RESTFUL_GET,null,function (res) {
+				if(res.code==D.SUCCESS_CODE){
+                    zNodes = res.result;
+				}else{
+					modals.error("加载ztree信息失败!");
+				}
+            })
 			return zNodes;
 		},
 
