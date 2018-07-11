@@ -86,13 +86,13 @@ var Enterprise = {
     search: function () {
         $("#search").click(function () {
             var queryData = {};
-            queryData['enterprise_name'] = $("#enterpriseName").val();
+            queryData['enterprise_name'] = $("#enterprise_name").val();
             Enterprise.table.refresh({query: queryData});
         })
         $("#btn_reset").click(function () {
-            $("#enterpriseName").val("");
+            $("#enterprise_name").val("");
             var queryData = {};
-            queryData['enterprise_name'] = $("#enterpriseName").val();
+            queryData['enterprise_name'] = $("#enterprise_name").val();
             Enterprise.table.refresh({query: queryData});
 
         })
@@ -120,16 +120,14 @@ var Enterprise = {
         $("#btn_add").click(function () {
             modals.openWin({
                 winId: me.winId,
-                title: '新增角色',
+                title: '新增企业',
                 width: '900px',
                 backdrop: 'static',
                 keyboard: false,
-                url: D.HTML_PATH + "sysRole/sysRoleAdd.html"
+                url: D.HTML_PATH + "qzEnterprise/qzEnterpriseAdd.html"
             });
         });
     },
-
-
 }
 $(function () {
     var defaultColunms = Enterprise.initColumn();

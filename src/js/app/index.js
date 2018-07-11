@@ -36,12 +36,12 @@ var Index = {
             }
         })
     },
-    clickUrl:function(){
+    clickUrl: function () {
         $(".sidebar-menu").on("click", "a[data-url]", function () {
             var url = $(this).data("url");
             D.addCookie("this_content_url", url)
             var codes = $(this).data("actions");
-            $("#mainDiv").load(D.HTML_PATH+url);
+            $("#mainDiv").load(D.HTML_PATH + url);
             localStorage.windowCodes = codes;
             //$("ul.treeview-menu li").removeClass("active");
             //$(this).parent().addClass("active");
@@ -49,8 +49,8 @@ var Index = {
             var header_bread = $(this).data("name");
             localStorage.removeItem("header_name");
             localStorage.removeItem("header_bread");
-            localStorage.setItem("header_name",header_name);
-            localStorage.setItem("header_bread",header_bread);
+            localStorage.setItem("header_name", header_name);
+            localStorage.setItem("header_bread", header_bread);
         });
     },
     initHtml: function (names, name, arr) {
@@ -89,5 +89,18 @@ $(function () {
             } catch (e) {
             }
         }
+    }
+    $.prototype.serializeObject = function () {
+        var a, o, h, i, e;
+        a = this.serializeArray();
+        o = {};
+        h = o.hasOwnProperty;
+        for (i = 0; i < a.length; i++) {
+            e = a[i];
+            if (!h.call(o, e.name)) {
+                o[e.name] = e.value;
+            }
+        }
+        return o;
     }
 })
