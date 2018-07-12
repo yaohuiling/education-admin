@@ -24,14 +24,14 @@ var SysRoleInfo = {
         }
     },
     init: function () {
-        this.roleAddStatusBootstrapSwitch();
+        this.roleStatusBootstrapSwitch();
         this.add();
+        this.info();
+        this.modify();
         this.initOfficeTree();
         this.initRoleTree();
         this.clickRoleTree();
         this.clickOfficeTree();
-        this.info();
-        this.modify();
     },
 
     /**
@@ -69,16 +69,16 @@ var SysRoleInfo = {
     /**
      * 初始化switch 按钮
      */
-    roleAddStatusBootstrapSwitch: function () {
-        $("#add_role_status_switch").bootstrapSwitch({
+    roleStatusBootstrapSwitch: function () {
+        $("#role_status_switch").bootstrapSwitch({
             onText: "启用",
             offText: "禁用"
         });
-        $("#add_role_status_switch").on("switchChange.bootstrapSwitch", function (event, state) {
+        $("#role_status_switch").on("switchChange.bootstrapSwitch", function (event, state) {
             if (state) {
-                $("#add_role_status").val(1);
+                $("#role_status").val(1);
             } else {
-                $("#add_role_status").val(0);
+                $("#role_status").val(0);
             }
         });
     },
@@ -112,6 +112,7 @@ var SysRoleInfo = {
                     modals.closeWin(SysRole.winId);
                     modals.correct(res.msg);
                     window.parent.SysRole.table.refresh();
+                    window.roleId=null;
                 } else {
                     modals.error(res.msg);
                 }
@@ -142,10 +143,16 @@ var SysRoleInfo = {
         $("#officeName").click(function () {
             $("#officeContent").fadeIn(500);
         })
+
     },
+    /**
+     * 获取点击的角色信息
+     */
     info:function () {
         D.syncAjax(this.getInfo,D.RESTFUL_GET,{"id":window.roleId},function (res) {
             if(res.code==D.SUCCESS_CODE){
+                window.roleId=null;
+                $("#role_status_switch").bootstrapSwitch("state", res.result.status)
                 $("#roleForm").deserialize(res.result);
             }else{
                 modals.error("请求失败");
