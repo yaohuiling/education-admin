@@ -7,7 +7,7 @@ var SysRoleInfo = {
     addSysRole: D.API_PATH + "sysRole/add",//保存角色
     modifySysRole: D.API_PATH + "sysRole/modify",//修改角色
     roleTreeList: D.API_PATH + "sysRole/tree",//获取角色树
-    officeTreeList: D.API_PATH + "sysOffice/tree",//修改角色
+    officeTreeList: D.API_PATH + "sysOffice/tree",//获取组织机构树
     officeTree: null,
     roleTree: null,
     validateFields: {

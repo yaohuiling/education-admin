@@ -129,6 +129,10 @@
 				url : options.url,
 				data : parms?parms:options.ajaxParams,
 				dataType : "JSON",
+                //跨域请求
+                xhrFields: {
+                    withCredentials: true
+                },
 				success : function(data, textStatus, jqXHR) {
 					// 加载完数据先清空
 					tbody.html("");

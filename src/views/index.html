@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="../js/plugins/iCheck/all.css">
   <link rel="stylesheet" href="../js/plugins/bootstrap-switch/css/bootstrap-switch.min.css">
   <link rel="stylesheet" href="../js/plugins/ztree/css/zTreeStyle/zTreeStyle.css">
+  <link rel="stylesheet" href="../js/plugins/jquery-treegrid/css/jquery.treegrid.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -123,6 +124,9 @@
 <script src="../js/plugins/jquery-cookie/jquery.cookie.js"></script>
 <script src="../js/plugins/iCheck/icheck.min.js"></script>
 <script src="../js/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script src="../js/plugins/jquery-treegrid/extension/jquery.treegrid.extension.js"></script>
+<script src="../js/plugins/jquery-treegrid/js/jquery.treegrid.min.js"></script>
+<script src="../js/plugins/jquery-treegrid/js/jquery.treegrid.bootstrap3.js"></script>
 <!--<script src="../js/plugins/jquery.serialize-object/jquery.serialize-object.min.js"></script>-->
 <script src="../js/common/base.js"></script>
 <script src="../js/common/base-modal.js"></script>
@@ -132,29 +136,7 @@
 <script src="../js/app/index.js"></script>
 <script>
     $(function () {
-        function resetToDefaults() {
-            topbar.config({
-                autoRun: true,
-                barThickness: 3,
-                barColors: {
-                    '0': 'rgba(26,  188, 156, .9)',
-                    '.25': 'rgba(52,  152, 219, .9)',
-                    '.50': 'rgba(241, 196, 15,  .9)',
-                    '.75': 'rgba(230, 126, 34,  .9)',
-                    '1.0': 'rgba(211, 84,  0,   .9)'
-                },
-                shadowBlur: 10,
-                shadowColor: 'rgba(0,   0,   0,   .6)'
-            })
-        }
-
-        // Page load
-        resetToDefaults()
-        topbar.show()
-        setTimeout(function () {
-            $('.wrapper').fadeIn('slow')
-            topbar.hide()
-        }, 500)
+       D.topBar();
     })
 </script>
 </body>

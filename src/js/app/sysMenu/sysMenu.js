@@ -1,20 +1,17 @@
-/**
- * @name: sysRole.js
- * @date:2018-07-06 14:30
- */
-var SysRole = {
-    id: "roleTable",
+var SysMenu = {
+    id: "menuTable",
     table: null,
     seItem: null,		//选中的条目
-    winId: "roleWin",
-    roleList: D.API_PATH + "sysRole/list",//获取角色列表
-    removeSysRole: D.API_PATH + "sysRole/remove",//根据id删除角色
+    winId: "menuWin",
+    menuList: D.API_PATH + "sysMenu/list",//获取菜单列表
+    removeSysMenu: D.API_PATH + "sysMenu/remove",//根据id删除菜单
     init: function () {
         this.initHeader();
         this.search();
         this.remove();
         this.add();
         this.modify();
+        this.initMenuTable();
     },
     initHeader: function () {
         var header = $(".content-header");
@@ -39,35 +36,27 @@ var SysRole = {
     initColumn: function () {
         var columns = [
             {field: 'selectItem', radio: true},
-            {
-                title: '序号', width: 50, align: 'center', valign: 'middle',
-                formatter: function (value, row, index) {
-                    return index + 1;
-                }
-            },
             {title: 'id', field: 'id', visible: false, align: 'center', valign: 'middle'},
-            {title: '名称', field: 'name', align: 'center', valign: 'middle'},
-            {title: '上级角色', field: 'pName', align: 'center', valign: 'middle'},
-            {title: '所在机构', field: 'officeName', align: 'center', valign: 'middle'},
-            {
-                title: '状态', field: 'status', align: 'center', valign: 'middle',
-                formatter: function (value) {
-                    if (value == 1) {
+            {title: '菜单名称', field: 'name', align: 'center', valign: 'middle', sortable: true, width: '17%'},
+            {title: '菜单编号', field: 'code', align: 'center', valign: 'middle', sortable: true, width: '12%'},
+            {title: '菜单父编号', field: 'pcode', align: 'center', valign: 'middle', sortable: true},
+            {title: '请求地址', field: 'url', align: 'center', valign: 'middle', sortable: true, width: '15%'},
+            {title: '排序', field: 'num', align: 'center', valign: 'middle', sortable: true},
+            {title: '层级', field: 'levels', align: 'center', valign: 'middle', sortable: true},
+            {title: '是否是菜单', field: 'isMenuName', align: 'center', valign: 'middle', sortable: true,formatter(value){
+                if(value==1){
+                    return"否"
+                }else{
+                    return "是"
+                }
+                }},
+            {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true,formatter(value){
+                    if(value==1){
+                        return"禁用"
+                    }else{
                         return "启用"
-                    } else {
-                        return "禁用"
                     }
-                }
-            },
-            {title: '描述', field: 'desc', align: 'center', valign: 'middle'},
-            {
-                title: '创建时间', field: 'creatTime', align: 'center', valign: 'middle',
-                formatter: function (value) {
-                    return moment(value).format("YYYY-MM-DD HH:MM:ss")
-
-                }
-            }
-        ]
+                }}]
         return columns;
     },
     /**
@@ -79,21 +68,21 @@ var SysRole = {
             modals.info("请先选中表格中的某一记录！");
             return false;
         } else {
-            SysRole.seItem = selected[0];
+            SysMenu.seItem = selected[0];
             return true;
         }
     },
     search: function () {
         $("#search").click(function () {
             var queryData = {};
-            queryData['name'] = $("#role_name").val();
-            SysRole.table.refresh({query: queryData});
+            queryData['name'] = $("#menu_name").val();
+            SysMenu.table.refresh({query: queryData});
         })
         $("#btn_reset").click(function () {
-            $("#role_name").val("");
+            $("#menu_name").val("");
             var queryData = {};
-            queryData['name'] = $("#role_name").val();
-            SysRole.table.refresh({query: queryData});
+            queryData['name'] = $("#menu_name").val();
+            SysMenu.table.refresh({query: queryData});
 
         })
     },
@@ -102,11 +91,11 @@ var SysRole = {
         $("#btn_delete").click(function () {
             if (me.check()) {
                 modals.confirm("确认删除吗？", function () {
-                    D.ajax(me.removeSysRole, D.RESTFUL_POST, {"id": SysRole.seItem.id}, function (res) {
+                    D.ajax(me.removeSysMenu, D.RESTFUL_POST, {"id": SysMenu.seItem.id}, function (res) {
                         if (D.SUCCESS_CODE == res.code) {
                             modals.correct(res.msg);
-                            SysRole.seItem = null;
-                            SysRole.table.refresh();
+                            SysMenu.seItem = null;
+                            SysMenu.table.refresh();
                         } else {
                             modals.error(res.msg);
                         }
@@ -121,11 +110,11 @@ var SysRole = {
         $("#btn_add").click(function () {
             modals.openWin({
                 winId: me.winId,
-                title: '新增角色',
+                title: '新增菜单',
                 width: '900px',
                 backdrop: 'static',
                 keyboard: false,
-                url: D.HTML_PATH + "sysRole/sysRoleAdd.html"
+                url: D.HTML_PATH + "sysMenu/sysMenuAdd.html"
             });
         });
     },
@@ -136,22 +125,28 @@ var SysRole = {
                 window.roleId = me.seItem.id
                 modals.openWin({
                     winId: me.winId,
-                    title: '修改角色',
+                    title: '修改菜单',
                     width: '900px',
                     backdrop: 'static',
                     keyboard: false,
-                    url: D.HTML_PATH + "sysRole/sysRoleEdit.html"
+                    url: D.HTML_PATH + "sysMenu/sysMenuEdit.html"
                 });
             }
         });
+    },
+    initMenuTable:function(){
+        var defaultColunms = this.initColumn();
+        var table = new BSTreeTable(this.id,this.menuList, defaultColunms);
+        table.setExpandColumn(2);
+        table.setIdField("id");
+        table.setCodeField("id");
+        table.setParentCodeField("pid");
+        table.setExpandAll(true);
+        table.init();
+        SysMenu.table = table;
     }
-
-
 }
 $(function () {
+    SysMenu.init();
     D.topBar();
-    var defaultColunms = SysRole.initColumn();
-    var table = new BSTable(SysRole.id, SysRole.roleList, defaultColunms);
-    SysRole.table = table.init();
-    SysRole.init();
 })
