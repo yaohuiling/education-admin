@@ -74,7 +74,7 @@
 				if(res.code==D.SUCCESS_CODE){
                     zNodes = res.result;
 				}else{
-					modals.error("加载ztree信息失败!");
+					modals.error(res.msg);
 				}
             })
 			return zNodes;

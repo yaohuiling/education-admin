@@ -39,6 +39,14 @@ var SysMenuAdd = {
                     message: '长度必须在1-200之间'
                 }
             }
+        },
+        num: {
+            validators: {
+                regexp: {//匹配规则
+                    regexp: /^\d*$/,
+                    message: '只能输入正整数'
+                }
+            }
         }
     },
     init: function () {
@@ -101,7 +109,7 @@ var SysMenuAdd = {
         menuTree.init();
         SysMenuAdd.menuTree = menuTree;
     },
-    clickMenuTree() {
+    clickMenuTree:function() {
         $("#pMenuName").click(function () {
             $("#pMenuContent").fadeIn(500);
         })
@@ -128,7 +136,6 @@ var SysMenuAdd = {
 
 
 $(function () {
-    debugger
     D.initValidator("addMenuForm", SysMenuAdd.validateFields);
     $('#addMenuForm').data("bootstrapValidator").addRequiredIdentifying();
     SysMenuAdd.init();

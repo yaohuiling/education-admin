@@ -15,6 +15,7 @@ var SysRole = {
         this.remove();
         this.add();
         this.modify();
+        this.authority();
     },
     initHeader: function () {
         var header = $(".content-header");
@@ -113,6 +114,22 @@ var SysRole = {
                     })
                 })
 
+            }
+        })
+    },
+    authority: function () {
+        var me = this;
+        $("#btn_authority").click(function () {
+            if (me.check()) {
+                window.roleId = me.seItem.id
+                modals.openWin({
+                    winId: me.winId,
+                    title: '设置权限',
+                    width: '900px',
+                    backdrop: 'static',
+                    keyboard: false,
+                    url: D.HTML_PATH + "sysRole/sysRoleAssign.html"
+                });
             }
         })
     },

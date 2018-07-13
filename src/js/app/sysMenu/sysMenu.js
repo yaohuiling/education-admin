@@ -43,14 +43,14 @@ var SysMenu = {
             {title: '请求地址', field: 'url', align: 'center', valign: 'middle', sortable: true, width: '15%'},
             {title: '排序', field: 'num', align: 'center', valign: 'middle', sortable: true},
             {title: '层级', field: 'levels', align: 'center', valign: 'middle', sortable: true},
-            {title: '是否是菜单', field: 'isMenuName', align: 'center', valign: 'middle', sortable: true,formatter(value){
+            {title: '是否是菜单', field: 'isMenuName', align: 'center', valign: 'middle', sortable: true,formatter:function(value){
                 if(value==1){
                     return"否"
                 }else{
                     return "是"
                 }
                 }},
-            {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true,formatter(value){
+            {title: '状态', field: 'statusName', align: 'center', valign: 'middle', sortable: true,formatter:function(value){
                     if(value==1){
                         return"禁用"
                     }else{

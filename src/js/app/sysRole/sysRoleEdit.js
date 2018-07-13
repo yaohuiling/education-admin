@@ -4,7 +4,6 @@
  */
 var SysRoleInfo = {
     getInfo: D.API_PATH + "sysRole/info",//根据id查询角色
-    addSysRole: D.API_PATH + "sysRole/add",//保存角色
     modifySysRole: D.API_PATH + "sysRole/modify",//修改角色
     roleTreeList: D.API_PATH + "sysRole/tree",//获取角色树
     officeTreeList: D.API_PATH + "sysOffice/tree",//获取组织机构树
@@ -25,7 +24,8 @@ var SysRoleInfo = {
     },
     init: function () {
         this.roleStatusBootstrapSwitch();
-        this.add();
+        this.info();
+        this.modify();
         this.initOfficeTree();
         this.initRoleTree();
         this.clickRoleTree();
@@ -80,21 +80,22 @@ var SysRoleInfo = {
             }
         });
     },
-    add: function () {
+    modify: function () {
         var me = this;
-        $("#addSubmit").click(function (event) {
-            if (!D.validate("roleForm")) {
+        $("#editSubmit").click(function (event) {
+            if (!D.validate("roleEditForm")) {
                 return;
             }
-            var obj = $("#roleForm").serializeObject();
-            D.ajax(me.addSysRole, D.RESTFUL_POST, obj, function (res) {
+            var obj = $("#roleEditForm").serializeObject();
+            D.ajax(me.modifySysRole, D.RESTFUL_POST, obj, function (res) {
                 if (res.code == D.SUCCESS_CODE) {
                     modals.closeWin(SysRole.winId);
                     modals.correct(res.msg);
                     window.parent.SysRole.table.refresh();
+                    window.roleId=null;
                 } else {
                     modals.error(res.msg);
-
+                    window.roleId=null;
                 }
             })
         })
@@ -124,13 +125,27 @@ var SysRoleInfo = {
             $("#officeContent").fadeIn(500);
         })
 
+    },
+    /**
+     * 获取点击的角色信息
+     */
+    info:function () {
+        D.syncAjax(this.getInfo,D.RESTFUL_GET,{"id":window.roleId},function (res) {
+            if(res.code==D.SUCCESS_CODE){
+                window.roleId=null;
+                $("#role_status_switch").bootstrapSwitch("state", res.result.status)
+                $("#roleEditForm").deserialize(res.result);
+            }else{
+                modals.error("请求失败");
+            }
+        })
     }
 }
 
 
 $(function () {
-    D.initValidator("roleForm", SysRoleInfo.validateFields);
-    $('#roleForm').data("bootstrapValidator").addRequiredIdentifying();
+    D.initValidator("roleEditForm", SysRoleInfo.validateFields);
+    $('#roleEditForm').data("bootstrapValidator").addRequiredIdentifying();
     SysRoleInfo.init();
 
 })
