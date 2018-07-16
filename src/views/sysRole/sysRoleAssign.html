@@ -1,0 +1,38 @@
+
+<div id="add">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+            <li class="fa fa-remove"></li>
+        </button>
+        <h5 class="modal-title">新增角色</h5>
+    </div>
+    <div class="modal-body">
+        <form id="roleForm" name="roleForm" class="form-horizontal">
+            <div class="box-body">
+                <div class="container" style="padding:  0px 10px !important;margin-top: -10px;text-align: center !important;">
+                    <div class="row">
+                        <div class="ibox float-e-margins">
+                            <div class="ibox-content">
+                                <ul id="zTree" class="ztree"></ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- 这是父级菜单下拉框 -->
+
+            <!-- /.box-body -->
+            <div class="box-footer text-right">
+                <!--以下两种方式提交验证,根据所需选择-->
+                <button type="button" class="btn btn-default" data-btn-type="cancel" id="addCancel"
+                        data-dismiss="modal">取消
+                </button>
+                <button type="button" class="btn btn-primary" data-btn-type="save" id="authSubmit">提交</button>
+            </div>
+            <!-- /.box-footer -->
+        </form>
+    </div>
+</div>
+<script src="../../js/app/sysRole/sysRoleAssign.js"></script>
